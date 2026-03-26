@@ -1,0 +1,99 @@
+Project: Arulraj Textiles (MERN)
+
+Overview
+- Full-stack MERN application for showcasing textile collections, ordering, and tracking.
+- Elegant theme with custom cloth-like cursor and responsive UI.
+- Admin can manage products and update order statuses.
+
+Technology Stack
+- Client: React + Vite, React Router, Tailwind CSS, Framer Motion
+- Server: Node.js, Express.js, Mongoose, JWT
+- DB: MongoDB Atlas
+
+Environment
+- Server .env (already set): 
+  MONGO_URI=mongodb+srv://user:user@cluster0.wqniobg.mongodb.net/?appName=Cluster0
+  NODE_ENV=development
+  PORT=5000
+  JWT_SECRET=any_secure_secret
+
+Run Locally
+- Server: cd server && npm install && node index.js
+- Client: cd client && npm install && npm run dev
+- Visit client at http://localhost:5173/
+
+Admin Credentials
+- Email: admin@example.com
+- Password: 123456
+  (Seeded via [users.js](file:///c:/Arunraj%20Textiles/server/data/users.js))
+
+Key Routes (Client)
+- Home: http://localhost:5173/
+- Shop: http://localhost:5173/shop
+- Product Details: http://localhost:5173/product/:id
+- Cart: http://localhost:5173/cart
+- Login: http://localhost:5173/login
+- Profile: http://localhost:5173/profile
+- Shipping: http://localhost:5173/shipping
+- Place Order: http://localhost:5173/placeorder
+- Track Order: http://localhost:5173/track
+- Admin Dashboard: http://localhost:5173/admin
+
+Image Handling
+- External Unsplash images are blocked by ORB; switched to local images:
+  client/public/images/hero.jpg, silk.jpg, cotton.jpg, denim.jpg
+  Products updated to use available local images.
+
+Customer Flow
+1) Add to cart from Shop/Product pages
+2) Go to Cart → Proceed to Checkout
+3) Login/Register
+4) Fill Shipping details (saved in localStorage)
+5) Review in Place Order and submit (POST /api/orders)
+6) See order ID and track via Track Order
+7) Profile shows account info and order history
+
+Server API (Protected with JWT)
+- Users:
+  POST /api/users        (register)
+  POST /api/users/login  (login)
+  GET  /api/users/profile (me)
+- Products:
+  GET  /api/products
+  GET  /api/products/:id
+- Orders:
+  POST /api/orders             (create)
+  GET  /api/orders/myorders    (my list)
+  GET  /api/orders/:id         (details)
+  PUT  /api/orders/:id/pay     (mark paid)
+  PUT  /api/orders/:id/deliver (admin deliver)
+
+Admin Features
+- Login with admin credentials
+- Post and manage products
+- View and update order status (delivered)
+
+Seed Data
+- Run seeder if needed:
+  cd server
+  node seeder.js         (import)
+  node seeder.js -d      (destroy)
+  Uses [products.js](file:///c:/Arunraj%20Textiles/server/data/products.js) & [users.js](file:///c:/Arunraj%20Textiles/server/data/users.js)
+
+Files of Interest
+- Client routing: [App.jsx](file:///c:/Arunraj%20Textiles/client/src/App.jsx)
+- Profile page: [Profile.jsx](file:///c:/Arunraj%20Textiles/client/src/pages/Profile.jsx)
+- Shipping page: [Shipping.jsx](file:///c:/Arunraj%20Textiles/client/src/pages/Shipping.jsx)
+- Place Order page: [PlaceOrder.jsx](file:///c:/Arunraj%20Textiles/client/src/pages/PlaceOrder.jsx)
+- Order tracking: [OrderTracking.jsx](file:///c:/Arunraj%20Textiles/client/src/pages/OrderTracking.jsx)
+- Navbar with profile link: [Navbar.jsx](file:///c:/Arunraj%20Textiles/client/src/components/Navbar.jsx)
+- Auth context: [AuthContext.jsx](file:///c:/Arunraj%20Textiles/client/src/context/AuthContext.jsx)
+- Cart context: [CartContext.jsx](file:///c:/Arunraj%20Textiles/client/src/context/CartContext.jsx)
+- Server entry: [index.js](file:///c:/Arunraj%20Textiles/server/index.js)
+- Order controller: [orderController.js](file:///c:/Arunraj%20Textiles/server/controllers/orderController.js)
+- Order routes: [orderRoutes.js](file:///c:/Arunraj%20Textiles/server/routes/orderRoutes.js)
+
+Notes
+- Replace JWT_SECRET with a strong secret before production.
+- Ensure images exist under client/public/images.
+- For deployment, configure environment variables and HTTPS, and set CORS origins appropriately.
