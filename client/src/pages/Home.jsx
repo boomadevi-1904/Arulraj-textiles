@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../services/api';
 
 const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
