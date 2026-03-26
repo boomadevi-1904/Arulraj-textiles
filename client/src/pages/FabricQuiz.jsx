@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import StudioNav from '../components/StudioNav';
 
 const FabricQuiz = () => {
@@ -15,7 +15,7 @@ const FabricQuiz = () => {
     if (answers.season === 'winter') category = 'Denim';
     if (answers.season === 'summer') category = 'Cotton';
     try {
-      const { data } = await axios.get('http://localhost:5000/api/products');
+      const { data } = await api.get('/api/products');
       setResults(data.filter((p) => p.category.toLowerCase() === category.toLowerCase()));
     } catch {
       setResults([]);

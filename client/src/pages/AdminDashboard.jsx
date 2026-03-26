@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../services/api'; // Use the centralized API service
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FiPlus, FiTrash2, FiUsers, FiPackage, FiEdit2, FiXCircle, FiCheckCircle } from 'react-icons/fi';
@@ -31,10 +31,11 @@ const AdminDashboard = () => {
 
     try {
       if (activeTab === 'products') {
-        const { data } = await axios.get('/api/products');
+        // Public route, no token needed, but we use the api instance
+        const { data } = await api.get('/api/products');
         setProducts(data);
       } else if (activeTab === 'users') {
-        const { data } = await axios.get('/api/users', config);
+        const { data } = await api.get('/api/users', config);
         setUsers(data);
       }
     } catch (error) {
@@ -58,7 +59,7 @@ const AdminDashboard = () => {
         const config = {
           headers: { Authorization: `Bearer ${user.token}` },
         };
-        await axios.put(`/api/users/${id}/status`, { status: newStatus }, config);
+        await api.put(`/api/users/${id}/status`, { status: newStatus }, config);
         fetchData();
       } catch (error) {
         alert(error.response?.data?.message || 'Error updating status');
@@ -75,7 +76,7 @@ const AdminDashboard = () => {
       const config = {
         headers: { Authorization: `Bearer ${user.token}` },
       };
-      await axios.put(`/api/products/${editingStock._id}/stock`, { countInStock: newStock }, config);
+      await api.put(`/api/products/${editingStock._id}/stock`, { countInStock: newStock }, config);
       setEditingStock(null);
       fetchData();
     } catch (error) {
@@ -89,7 +90,7 @@ const AdminDashboard = () => {
         const config = {
           headers: { Authorization: `Bearer ${user.token}` },
         };
-        await axios.post('/api/products', {}, config);
+        await api.post('/api/products', {}, config);
         alert('Product created! Please edit the details.');
         fetchData();
         // In a real app, navigate to edit page
@@ -105,7 +106,7 @@ const AdminDashboard = () => {
         const config = {
           headers: { Authorization: `Bearer ${user.token}` },
         };
-        await axios.delete(`/api/products/${id}`, config);
+        await api.delete(`/api/products/${id}`, config);
         fetchData();
       } catch (error) {
         console.error(error);

@@ -20,8 +20,8 @@ const Profile = () => {
         }
         const config = { headers: { Authorization: `Bearer ${user.token}` } };
         const [profileRes, ordersRes] = await Promise.all([
-          axios.get('/api/users/profile', config),
-          axios.get('/api/orders/myorders', config),
+          api.get('/api/users/profile', config),
+          api.get('/api/orders/myorders', config),
         ]);
         setProfile(profileRes.data);
         setOrders(ordersRes.data);

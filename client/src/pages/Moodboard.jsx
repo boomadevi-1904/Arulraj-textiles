@@ -12,7 +12,7 @@ const Moodboard = () => {
   useEffect(() => {
     const load = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/products');
+        const { data } = await api.get('/api/products');
         setProducts(data);
       } catch (error) {
         console.error(error);

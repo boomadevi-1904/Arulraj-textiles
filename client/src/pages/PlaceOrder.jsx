@@ -56,7 +56,7 @@ const PlaceOrder = () => {
         shippingPrice,
         totalPrice,
       };
-      const { data } = await axios.post('/api/orders', payload, config);
+      const { data } = await api.post('/api/orders', payload, config);
       clearCart();
       localStorage.removeItem('shippingAddress');
       navigate('/track');
